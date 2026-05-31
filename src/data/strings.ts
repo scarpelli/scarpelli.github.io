@@ -18,6 +18,8 @@ export interface Strings {
   greet: string;
   sub: string;
   oneliner: [string, string, string];
+  impactLabel: string;
+  impact: string[];
   homeCards: HomeCard[];
   latestLabel: string;
   seeAll: string;
@@ -48,15 +50,21 @@ export interface Strings {
 
 export const STR: Record<Lang, Strings> = {
   pt: {
-    tagline: "Engenheira de Dados · pipelines · lakehouse",
+    tagline: "Engenheira de Dados · Databricks · Spark · Azure",
     navFull: ["Artigos", "Projetos", "Sobre"],
     greet: "Olá, eu sou a Bruna",
-    sub: "Transformando eventos bagunçados em pipelines em que você pode confiar.",
+    sub: "Engenheira de Dados Júnior na KIS Solutions — ~2.5 anos construindo pipelines em produção com Databricks, PySpark, Kafka e Azure.",
     oneliner: ["Gosto de construir sistemas que tornam o ", "trabalho dos outros mais simples", "."],
+    impactLabel: "Impacto em produção",
+    impact: [
+      "Na KIS Solutions, reescrevi a unificação de perfis de um CDP: arquitetura 47× mais rápida e −98% no tempo de processamento.",
+      "Integração de audiências de marketing processando +1 milhão de usuários/dia, estável em picos como a Black Friday.",
+      "Sistema de alertas de qualidade de dados auditando até 1 milhão de consumidores/dia.",
+    ],
     homeCards: [
-      { to: "articles", n: "01", label: "Artigos", desc: "Lições de pipelines reais, Spark e Delta sem jargão, e reflexões de arquitetura." },
-      { to: "projects", n: "02", label: "Projetos", desc: "Ferramentas pequenas que rodam no navegador e resolvem uma coisa bem." },
-      { to: "about", n: "03", label: "Sobre", desc: "Quem eu sou, como penso dados confiáveis, e como falar comigo." },
+      { to: "projects", n: "01", label: "Projetos", desc: "Trabalho real com dados: Neo4j + Spark, pipelines e ferramentas pequenas." },
+      { to: "about", n: "02", label: "Sobre", desc: "Cargo, stack, formação e como falar comigo." },
+      { to: "articles", n: "03", label: "Artigos", desc: "Notas técnicas sobre pipelines e dados." },
     ],
     latestLabel: "Escrevendo agora",
     seeAll: "Ver todos →",
@@ -66,8 +74,8 @@ export const STR: Record<Lang, Strings> = {
     readMore: "Ler artigo",
     pageIntro: {
       articles: "Escrevo pra entender melhor — e pra deixar registrado o que aprendi quebrando (e consertando) pipelines em produção.",
-      projects: "Ferramentas pequenas e de propósito único — daquelas que rodam no navegador e resolvem uma coisa bem. Cada uma com link pra usar e pro código.",
-      about: "Engenheira de dados, leitora de planos de execução, escritora ocasional sobre sistemas confiáveis.",
+      projects: "Projetos reais — priorizando trabalho com dados (Neo4j, Spark) e ferramentas pequenas de propósito único. Cada um com link pra usar e/ou pro código quando disponível.",
+      about: "Engenheira de dados júnior em produção, com base em Ciência da Computação na UFSCar.",
     },
     readingTime: "min de leitura",
     backToArticles: "Voltar para Artigos",
@@ -77,32 +85,37 @@ export const STR: Record<Lang, Strings> = {
     projLive: "Abrir",
     projCode: "Código",
     aboutBio: [
-      "Sou engenheira de dados. Passo os dias transformando eventos bagunçados em pipelines em que as pessoas conseguem confiar — e, às vezes à noite, escrevendo sobre isso.",
-      "Gosto do tipo de problema que parece chato por fora e é fascinante por dentro: por que esse job ficou lento, por que esse número não bate, por que ninguém confia nesse dashboard. Quase sempre a resposta é menos glamourosa e mais interessante do que parece.",
-      "Acredito em sistemas simples, observáveis e honestos sobre os próprios limites. Prefiro uma arquitetura que eu consiga explicar num guardanapo a uma que impressiona no diagrama e assombra na produção.",
-      "No fundo, o que me move é simples: gosto de construir sistemas que tornam o trabalho dos outros mais simples.",
+      "Sou engenheira de dados júnior na KIS Solutions, onde trabalho com pipelines em produção sobre Databricks, PySpark e Azure — da ingestão em streaming à arquitetura Medallion no lakehouse.",
+      "Cheguei aqui pela Ciência da Computação na UFSCar e por primeiros projetos de dev web; hoje meus dias giram em torno de escala, qualidade e custo de dados.",
+      "Prefiro sistemas simples, observáveis e honestos sobre os próprios limites — arquitetura que dá pra explicar num guardanapo.",
     ],
     aboutFactsLabel: "Em resumo",
-    aboutFacts: ["Sorocaba, SP · Brasil", "Spark · Delta · Azure", "Escrevendo: série sobre Spark", "Aberta a conversar sobre dados confiáveis"],
+    aboutFacts: ["Engenheira de Dados Júnior · KIS Solutions", "~2.5 anos em engenharia de dados", "Databricks · PySpark · Kafka · Delta · Azure", "Ciência da Computação · UFSCar", "Sorocaba, SP · Brasil"],
     aboutContact: "Fala comigo",
     footCta: "Vamos construir algo confiável.",
     footNote: "Feito com café e logs limpos · Sorocaba, SP",
     ipNote: "O conteúdo publicado neste site — incluindo artigos, trechos de código, diagramas e materiais originais — não pode ser reproduzido, redistribuído ou usado comercialmente sem autorização prévia por escrito.",
     ipShort: "© 2026 Bruna Scarpelli",
     kickerArticles: "Escrita técnica",
-    kickerProjects: "Ferramentas pequenas",
+    kickerProjects: "Trabalho com dados",
     kickerAbout: "Quem está por trás",
   },
   en: {
-    tagline: "Data Engineer · pipelines · lakehouse",
+    tagline: "Data Engineer · Databricks · Spark · Azure",
     navFull: ["Articles", "Projects", "About"],
     greet: "Hi, I'm Bruna",
-    sub: "Turning messy events into pipelines you can trust.",
+    sub: "Junior Data Engineer at KIS Solutions — ~2.5 years building production pipelines with Databricks, PySpark, Kafka and Azure.",
     oneliner: ["I enjoy building systems that make ", "other people's work simpler", "."],
+    impactLabel: "Impact in production",
+    impact: [
+      "At KIS Solutions, I rewrote a CDP's profile unification: 47× faster architecture and −98% processing time.",
+      "Marketing audience integration processing 1M+ users/day, stable through peaks like Black Friday.",
+      "Data-quality alerting auditing up to 1M consumers/day.",
+    ],
     homeCards: [
-      { to: "articles", n: "01", label: "Articles", desc: "Lessons from real pipelines, Spark and Delta without the jargon, and architecture reflections." },
-      { to: "projects", n: "02", label: "Projects", desc: "Small tools that run in the browser and do one thing well." },
-      { to: "about", n: "03", label: "About", desc: "Who I am, how I think about reliable data, and how to reach me." },
+      { to: "projects", n: "01", label: "Projects", desc: "Real data work: Neo4j + Spark, pipelines and small tools." },
+      { to: "about", n: "02", label: "About", desc: "Role, stack, education and how to reach me." },
+      { to: "articles", n: "03", label: "Articles", desc: "Technical notes on pipelines and data." },
     ],
     latestLabel: "Writing now",
     seeAll: "See all →",
@@ -112,8 +125,8 @@ export const STR: Record<Lang, Strings> = {
     readMore: "Read article",
     pageIntro: {
       articles: "I write to understand better — and to keep a record of what I learned breaking (and fixing) pipelines in production.",
-      projects: "Small, single-purpose tools — the kind that run in the browser and do one thing well. Each one with a link to use it and to the code.",
-      about: "Data engineer, reader of execution plans, occasional writer about reliable systems.",
+      projects: "Real projects — prioritizing data work (Neo4j, Spark) and small single-purpose tools. Each with a link to use it and/or the code when available.",
+      about: "Junior data engineer working in production, grounded in Computer Science at UFSCar.",
     },
     readingTime: "min read",
     backToArticles: "Back to Articles",
@@ -123,20 +136,19 @@ export const STR: Record<Lang, Strings> = {
     projLive: "Open",
     projCode: "Code",
     aboutBio: [
-      "I'm a data engineer. I spend my days turning messy events into pipelines people can trust — and, sometimes at night, writing about it.",
-      "I like the kind of problem that looks boring on the outside and is fascinating on the inside: why did this job get slow, why doesn't this number add up, why does no one trust this dashboard. The answer is almost always less glamorous and more interesting than it seems.",
-      "I believe in systems that are simple, observable and honest about their limits. I'd rather have an architecture I can explain on a napkin than one that dazzles in a diagram and haunts you in production.",
-      "At the core, what drives me is simple: I enjoy building systems that make other people's work simpler.",
+      "I'm a junior data engineer at KIS Solutions, where I work on production pipelines over Databricks, PySpark and Azure — from streaming ingestion to a Medallion lakehouse architecture.",
+      "I got here through Computer Science at UFSCar and early web-dev projects; these days my work revolves around data scale, quality and cost.",
+      "I prefer systems that are simple, observable and honest about their limits — architecture you can explain on a napkin.",
     ],
     aboutFactsLabel: "In short",
-    aboutFacts: ["Sorocaba, SP · Brazil", "Spark · Delta · Azure", "Writing: a series on Spark", "Open to talk about reliable data"],
+    aboutFacts: ["Junior Data Engineer · KIS Solutions", "~2.5 years in data engineering", "Databricks · PySpark · Kafka · Delta · Azure", "Computer Science · UFSCar", "Sorocaba, SP · Brazil"],
     aboutContact: "Get in touch",
     footCta: "Let's build something reliable.",
     footNote: "Made with coffee and clean logs · Sorocaba, SP",
     ipNote: "The content published on this website, including articles, code samples, diagrams and original materials, may not be reproduced, redistributed or used commercially without prior written permission.",
     ipShort: "© 2026 Bruna Scarpelli",
     kickerArticles: "Technical writing",
-    kickerProjects: "Small tools",
+    kickerProjects: "Data work",
     kickerAbout: "Who's behind this",
   },
 };

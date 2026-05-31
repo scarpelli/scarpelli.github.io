@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { STR, withBase } from "../data/strings";
+import { STR, GH_URL, LI_URL, withBase } from "../data/strings";
 import { t } from "../data/i18n";
 import { getArticles, articleSlug } from "../data/content";
 
@@ -28,6 +28,16 @@ const featuredHref = featured ? withBase(`articles/${articleSlug(featured)}`) : 
         <em><Fragment set:html={t(ptGreet.last, enGreet.last)} /></em>
       </h1>
       <p class="hero-sub"><Fragment set:html={t(STR.pt.sub, STR.en.sub)} /></p>
+      <p class="hero-links" style="margin-top:24px;display:flex;gap:22px;flex-wrap:wrap">
+        <a class="kicker" href={withBase("cv.pdf")} target="_blank" rel="noopener">
+          <Fragment set:html={t("Currículo (PDF)", "Résumé (PDF)")} /> →
+        </a>
+        <a class="kicker" href={withBase("projects")}>
+          <Fragment set:html={t(STR.pt.navFull[1], STR.en.navFull[1])} />
+        </a>
+        <a class="kicker" href={GH_URL} target="_blank" rel="noopener">GitHub</a>
+        <a class="kicker" href={LI_URL} target="_blank" rel="noopener">LinkedIn</a>
+      </p>
     </div>
     <aside class="hero-aside">
       <img
@@ -36,11 +46,18 @@ const featuredHref = featured ? withBase(`articles/${articleSlug(featured)}`) : 
         alt="Bruna Scarpelli"
         style="width:100%;object-fit:cover;border:0"
       />
-      <p>
-        <Fragment set:html={t(STR.pt.oneliner[0], STR.en.oneliner[0])} /><b
-          ><Fragment set:html={t(STR.pt.oneliner[1], STR.en.oneliner[1])} /></b
-        ><Fragment set:html={t(STR.pt.oneliner[2], STR.en.oneliner[2])} />
-      </p>
+      <div class="about-facts" style="margin-top:18px">
+        <div class="fl">
+          <Fragment set:html={t(STR.pt.impactLabel, STR.en.impactLabel)} />
+        </div>
+        <ul>
+          {
+            STR.pt.impact.map((f, i) => (
+              <li><Fragment set:html={t(f, STR.en.impact[i])} /></li>
+            ))
+          }
+        </ul>
+      </div>
     </aside>
   </header>
 
