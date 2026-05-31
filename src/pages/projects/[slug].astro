@@ -1,0 +1,69 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { STR, withBase } from "../../data/strings";
+import { t } from "../../data/i18n";
+import { getProjects, projectSlug, projectHasPage, type Project } from "../../data/content";
+
+// Gera página própria SÓ para projetos com corpo Markdown. Projetos link-only
+// (corpo vazio, ex.: Lattes→BibTeX) não geram página — o card vai direto pro demo.
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.filter(projectHasPage).map((p) => ({
+    params: { slug: projectSlug(p) },
+    props: { project: p },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const { title, summary, stack, githubUrl, demoUrl } = project.data;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${title} · Bruna Scarpelli`} description={summary} current={1}>
+  <article>
+    <div class="article-wrap">
+      <a class="back-link" href={withBase("projects")}>
+        ← <Fragment set:html={t(STR.pt.navFull[1], STR.en.navFull[1])} />
+      </a>
+    </div>
+    <header class="article-head article-wrap reveal in">
+      <h1>{title}</h1>
+      <p class="article-lead">{summary}</p>
+      {
+        stack.length > 0 && (
+          <div class="proj-stack" style="margin-top:20px">
+            {stack.map((s) => <span class="tag">{s}</span>)}
+          </div>
+        )
+      }
+      <div class="tc-links" style="margin-top:22px">
+        {
+          demoUrl && (
+            <a href={demoUrl} target="_blank" rel="noopener">
+              <Fragment set:html={t(STR.pt.projLive, STR.en.projLive)} /> <span>→</span>
+            </a>
+          )
+        }
+        {
+          githubUrl && (
+            <a class="ghost" href={githubUrl} target="_blank" rel="noopener">
+              <Fragment set:html={t(STR.pt.projCode, STR.en.projCode)} />
+            </a>
+          )
+        }
+      </div>
+    </header>
+    <div class="article-body article-wrap reveal in">
+      <Content />
+    </div>
+    <div class="article-foot">
+      <a class="back-link" href={withBase("projects")} style="padding:0">
+        ← <Fragment set:html={t(STR.pt.navFull[1], STR.en.navFull[1])} />
+      </a>
+    </div>
+  </article>
+</BaseLayout>

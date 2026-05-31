@@ -1,0 +1,42 @@
+---
+import { STR, withBase } from "../data/strings";
+import { t } from "../data/i18n";
+import { projectSlug, projectHasPage, type Project } from "../data/content";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+const { project, index } = Astro.props;
+const { title, summary, tags, demoUrl, githubUrl } = project.data;
+const num = String(index + 1).padStart(2, "0");
+
+// Link "Open": página interna do projeto se houver corpo; senão, vai direto pro demo.
+const internal = projectHasPage(project);
+const openHref = internal ? withBase(`projects/${projectSlug(project)}`) : demoUrl;
+---
+
+<div class="tool-card" data-lang={project.data.language}>
+  <span class="tc-num">{num}</span>
+  <h2>{title}</h2>
+  <p>{summary}</p>
+  <div class="tc-tags">
+    {tags.map((s) => <span class="tag">{s}</span>)}
+  </div>
+  <div class="tc-links">
+    {
+      openHref && (
+        <a href={openHref} target={internal ? undefined : "_blank"} rel={internal ? undefined : "noopener"}>
+          <Fragment set:html={t(STR.pt.projLive, STR.en.projLive)} /> <span>→</span>
+        </a>
+      )
+    }
+    {
+      githubUrl && (
+        <a class="ghost" href={githubUrl} target="_blank" rel="noopener">
+          <Fragment set:html={t(STR.pt.projCode, STR.en.projCode)} />
+        </a>
+      )
+    }
+  </div>
+</div>

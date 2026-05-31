@@ -1,0 +1,17 @@
+---
+import { t } from "../data/i18n";
+
+interface Props {
+  // textos bilíngues: kicker (eyebrow), title (h1), intro (parágrafo opcional)
+  kicker: { pt: string; en: string };
+  title: { pt: string; en: string };
+  intro?: { pt: string; en: string };
+}
+const { kicker, title, intro } = Astro.props;
+---
+
+<header class="page-head wrap reveal in">
+  <span class="eyebrow"><Fragment set:html={t(kicker.pt, kicker.en)} /></span>
+  <h1><Fragment set:html={t(title.pt, title.en)} /></h1>
+  {intro && <p class="page-intro"><Fragment set:html={t(intro.pt, intro.en)} /></p>}
+</header>

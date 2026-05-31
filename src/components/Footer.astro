@@ -1,0 +1,24 @@
+---
+import { STR, GH_URL, LI_URL } from "../data/strings";
+import { GH_PATH, LI_PATH } from "../data/icons";
+import { t } from "../data/i18n";
+---
+
+<footer class="foot wrap">
+  <h2><Fragment set:html={t(STR.pt.footCta, STR.en.footCta)} /></h2>
+  <div class="fsocial">
+    <a href={GH_URL} title="GitHub" target="_blank" rel="noopener">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d={GH_PATH} /></svg>
+    </a>
+    <a href={LI_URL} title="LinkedIn" target="_blank" rel="noopener">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d={LI_PATH} /></svg>
+    </a>
+  </div>
+  <div class="fbase">
+    <b><Fragment set:html={t(STR.pt.ipShort, STR.en.ipShort)} /></b
+    ><span class="sep">·</span><span
+      ><Fragment set:html={t(STR.pt.footNote, STR.en.footNote)} /></span
+    >
+  </div>
+  <p class="ffine"><Fragment set:html={t(STR.pt.ipNote, STR.en.ipNote)} /></p>
+</footer>

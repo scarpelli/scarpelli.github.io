@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { STR, withBase } from "../data/strings";
+import { t } from "../data/i18n";
+import { getArticles, articleSlug } from "../data/content";
+
+// Hero: separa a última palavra do "greet" para ficar em itálico (igual ao site antigo).
+function splitGreet(greet: string) {
+  const words = greet.split(" ");
+  const last = words.pop() ?? "";
+  return { lead: words.join(" "), last };
+}
+const ptGreet = splitGreet(STR.pt.greet);
+const enGreet = splitGreet(STR.en.greet);
+
+// Artigo em destaque: featured===true, senão o mais recente. Pode não existir.
+const articles = await getArticles();
+const featured = articles.find((a) => a.data.featured) ?? articles[0];
+const featuredHref = featured ? withBase(`articles/${articleSlug(featured)}`) : withBase("articles");
+---
+
+<BaseLayout title="Bruna Scarpelli · Data Engineer" current={null}>
+  <header class="hero wrap">
+    <div>
+      <span class="eyebrow"><Fragment set:html={t(STR.pt.tagline, STR.en.tagline)} /></span>
+      <h1>
+        <Fragment set:html={t(ptGreet.lead, enGreet.lead)} />
+        <em><Fragment set:html={t(ptGreet.last, enGreet.last)} /></em>
+      </h1>
+      <p class="hero-sub"><Fragment set:html={t(STR.pt.sub, STR.en.sub)} /></p>
+    </div>
+    <aside class="hero-aside">
+      <img
+        class="ph"
+        src={withBase("profile_photo.jpg")}
+        alt="Bruna Scarpelli"
+        style="width:100%;object-fit:cover;border:0"
+      />
+      <p>
+        <Fragment set:html={t(STR.pt.oneliner[0], STR.en.oneliner[0])} /><b
+          ><Fragment set:html={t(STR.pt.oneliner[1], STR.en.oneliner[1])} /></b
+        ><Fragment set:html={t(STR.pt.oneliner[2], STR.en.oneliner[2])} />
+      </p>
+    </aside>
+  </header>
+
+  <section class="section wrap reveal" style="padding-bottom: clamp(40px,5vw,60px)">
+    <div class="nav-cards">
+      {
+        STR.pt.homeCards.map((c, i) => (
+          <a class="nav-card" href={withBase(c.to)}>
+            <span class="nc-num">{c.n}</span>
+            <div>
+              <h3>
+                <Fragment set:html={t(c.label, STR.en.homeCards[i].label)} />
+              </h3>
+              <p>
+                <Fragment set:html={t(c.desc, STR.en.homeCards[i].desc)} />
+              </p>
+            </div>
+            <span class="nc-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    featured && (
+      <section class="section wrap reveal" style="padding-top: 0">
+        <div class="sec-head">
+          <h2><Fragment set:html={t(STR.pt.secWriting, STR.en.secWriting)} /></h2>
+          <a class="kicker" href={withBase("articles")}>
+            <Fragment set:html={t(STR.pt.seeAll, STR.en.seeAll)} />
+          </a>
+        </div>
+        <div class="feature">
+          <div>
+            <span class="eyebrow">
+              <Fragment set:html={t(STR.pt.latestLabel, STR.en.latestLabel)} />
+            </span>
+            <h3>{featured.data.title}</h3>
+            <p>{featured.data.summary}</p>
+            <a class="readmore" href={featuredHref}>
+              <Fragment set:html={t(STR.pt.readMore, STR.en.readMore)} /> <span class="arrow">→</span>
+            </a>
+          </div>
+          <a href={featuredHref} class="ph" style="text-decoration:none">diagrama do pipeline</a>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: number | null;
+}
+const { title, description, current = null } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt" data-band="slim" data-accent="orange">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/journal.css`} />
+  </head>
+  <body>
+    <div class="shell" id="top">
+      <Nav current={current} />
+      <slot />
+      <Footer />
+    </div>
+    <script>
+      import "../scripts/site-client.ts";
+    </script>
+  </body>
+</html>

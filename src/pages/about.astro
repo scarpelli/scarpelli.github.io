@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { STR, LI_URL, withBase } from "../data/strings";
+import { t } from "../data/i18n";
+---
+
+<BaseLayout title="Sobre · Bruna Scarpelli" current={2}>
+  <PageHeader
+    kicker={{ pt: STR.pt.kickerAbout, en: STR.en.kickerAbout }}
+    title={{ pt: STR.pt.navFull[2], en: STR.en.navFull[2] }}
+    intro={{ pt: STR.pt.pageIntro.about, en: STR.en.pageIntro.about }}
+  />
+
+  <section class="section wrap reveal in" style="padding-top: clamp(32px,4vw,52px)">
+    <div class="about-grid">
+      <div class="about-bio">
+        {
+          STR.pt.aboutBio.map((p, i) => (
+            <p><Fragment set:html={t(p, STR.en.aboutBio[i])} /></p>
+          ))
+        }
+        <a class="about-contact" href={LI_URL} target="_blank" rel="noopener">
+          <Fragment set:html={t(STR.pt.aboutContact, STR.en.aboutContact)} /> <span>→</span>
+        </a>
+      </div>
+      <aside>
+        <img
+          class="ph about-portrait"
+          src={withBase("profile_photo.jpg")}
+          alt="Bruna Scarpelli"
+          style="width:100%;object-fit:cover;border:0"
+        />
+        <div class="about-facts">
+          <div class="fl">
+            <Fragment set:html={t(STR.pt.aboutFactsLabel, STR.en.aboutFactsLabel)} />
+          </div>
+          <ul>
+            {
+              STR.pt.aboutFacts.map((f, i) => (
+                <li><Fragment set:html={t(f, STR.en.aboutFacts[i])} /></li>
+              ))
+            }
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

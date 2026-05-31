@@ -1,0 +1,59 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { STR, withBase } from "../../data/strings";
+import { t } from "../../data/i18n";
+import { getArticles, articleSlug, readingTime, type Article } from "../../data/content";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((a) => ({
+    params: { slug: articleSlug(a) },
+    props: { article: a },
+  }));
+}
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+const { title, summary, category, date, language, seoTitle, seoDescription } = article.data;
+const { Content } = await render(article);
+
+const locale = language === "en" ? "en-US" : "pt-BR";
+const dateLabel = date.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+const minutes = readingTime(article);
+
+const pageTitle = `${seoTitle ?? title} · Bruna Scarpelli`;
+const articlesHref = withBase("articles");
+---
+
+<BaseLayout title={pageTitle} description={seoDescription ?? summary} current={0}>
+  <article>
+    <div class="article-wrap">
+      <a class="back-link" href={articlesHref}>
+        ← <Fragment set:html={t(STR.pt.backToArticles, STR.en.backToArticles)} />
+      </a>
+    </div>
+    <header class="article-head article-wrap reveal in">
+      <span class="eyebrow">{category}</span>
+      <h1>{title}</h1>
+      <p class="article-lead">{summary}</p>
+      <div class="article-meta">
+        <span class="who"><span class="av">BS</span> Bruna Scarpelli</span>
+        <span class="dot-sep"></span>
+        <span>{dateLabel}</span>
+        <span class="dot-sep"></span>
+        <span>{minutes} <Fragment set:html={t(STR.pt.readingTime, STR.en.readingTime)} /></span>
+      </div>
+    </header>
+    <div class="article-body article-wrap reveal in">
+      <Content />
+    </div>
+    <div class="article-foot">
+      <a class="back-link" href={articlesHref} style="padding:0">
+        ← <Fragment set:html={t(STR.pt.backToArticles, STR.en.backToArticles)} />
+      </a>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import { withBase } from "../data/strings";
+import { articleSlug, type Article } from "../data/content";
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+const { title, category, date, language } = article.data;
+
+// Data formatada conforme o idioma do artigo.
+const locale = language === "en" ? "en-US" : "pt-BR";
+const dateLabel = date.toLocaleDateString(locale, { year: "numeric", month: "short" });
+
+// Primeira parte da categoria (ex.: "Spark · Performance" → "Spark"), igual ao site antigo.
+const tag = category.split(" · ")[0];
+---
+
+<a class="jrow" href={withBase(`articles/${articleSlug(article)}`)} data-lang={language}>
+  <span class="jdate">{dateLabel}</span>
+  <h4>{title}</h4>
+  <span class="jtag tag tag-cat">{tag}</span>
+</a>

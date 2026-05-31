@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import { STR } from "../../data/strings";
+import { getProjects } from "../../data/content";
+
+// Um card por arquivo em content/projects — largar um .md já faz o card aparecer.
+const projects = await getProjects();
+---
+
+<BaseLayout title="Projetos · Bruna Scarpelli" current={1}>
+  <PageHeader
+    kicker={{ pt: STR.pt.kickerProjects, en: STR.en.kickerProjects }}
+    title={{ pt: STR.pt.navFull[1], en: STR.en.navFull[1] }}
+    intro={{ pt: STR.pt.pageIntro.projects, en: STR.en.pageIntro.projects }}
+  />
+
+  <section class="section wrap reveal in" style="padding-top: clamp(28px,3.5vw,44px)">
+    <div class="tool-grid">
+      {projects.map((p, i) => <ToolCard project={p} index={i} />)}
+    </div>
+  </section>
+</BaseLayout>
